@@ -37,19 +37,19 @@ function drawBatteryMeter(dc, x, y, width, height) {
 	// drawRoundedRectangle's x and y are top-left corner of middle of stroke.
 	// Bottom-right corner of middle of stroke will be (x + width - 1, y + height - 1).
 	dc.drawRoundedRectangle(
-		x - (width / 2) + /* (BATTERY_LINE_WIDTH / 2) */ 1,
-		y - (height / 2) + /* (BATTERY_LINE_WIDTH / 2) */ 1,
-		width - /* BATTERY_LINE_WIDTH + 1 */ 1,
+		x - (height / 2) + /* (BATTERY_LINE_WIDTH / 2) */ 1,
+		y - (width / 2) + /* (BATTERY_LINE_WIDTH / 2) */ 1,
 		height - /* BATTERY_LINE_WIDTH + 1 */ 1,
+		width - /* BATTERY_LINE_WIDTH + 1 */ 1,
 		/* BATTERY_CORNER_RADIUS */ 2 * SCREEN_MULTIPLIER);
 
 	// Head.
 	// fillRectangle() works as expected.
 	dc.fillRectangle(
-		x + (width / 2) + BATTERY_MARGIN,
-		y - (BATTERY_HEAD_HEIGHT / 2),
-		/* BATTERY_HEAD_WIDTH */ 2,
-		BATTERY_HEAD_HEIGHT);
+		x - 4,
+		y - height - 2,
+		/* BATTERY_HEAD_WIDTH */ BATTERY_HEAD_HEIGHT,
+		2);
 
 	// Fill.
 	// #8: battery returned as float. Use floor() to match native. Must match getValueForFieldType().
@@ -70,10 +70,30 @@ function drawBatteryMeter(dc, x, y, width, height) {
 	var lineWidthPlusMargin = (/* BATTERY_LINE_WIDTH */ 2 + BATTERY_MARGIN);
 	var fillWidth = width - (2 * lineWidthPlusMargin);
 	dc.fillRectangle(
-		x - (width / 2) + lineWidthPlusMargin,
-		y - (height / 2) + lineWidthPlusMargin,
-		Math.ceil(fillWidth * (batteryLevel / 100)), 
-		height - (2 * lineWidthPlusMargin));
+		x - (height / 2) + lineWidthPlusMargin,
+		y + (width / 2) + lineWidthPlusMargin - 7,
+		height - (2 * lineWidthPlusMargin),
+		-Math.ceil(fillWidth * (batteryLevel / 100)));
+}
+
+function writeBatteryLevel(dc, x, y, width, height, type) {
+	var batteryLevel;		
+	var textColour;
+	
+	if (type == 0) { // Standard watch battery is being shown
+		batteryLevel = Math.floor(Sys.getSystemStats().battery);
+
+		if (batteryLevel <= /* BATTERY_LEVEL_CRITICAL */ 10) {
+			textColour = Graphics.COLOR_RED;
+		} else if (batteryLevel <= /* BATTERY_LEVEL_LOW */ 20) {
+			textColour = Graphics.COLOR_YELLOW;
+		} else {
+			textColour = Graphics.COLOR_WHITE;
+		}
+
+		dc.setColor(textColour, Graphics.COLOR_TRANSPARENT);
+		dc.drawText(x - (width / 2), y - height, gNormalFont, batteryLevel.toNumber().format(INTEGER_FORMAT) + "%", Graphics.TEXT_JUSTIFY_LEFT);
+	}
 }
 
 class CrystalView extends Ui.WatchFace {
@@ -194,7 +214,7 @@ class CrystalView extends Ui.WatchFace {
 
 		// Theme-specific colours.
 		gThemeColour = [
-			Graphics.COLOR_BLUE,     // THEME_BLUE_DARK
+			0x88c0d0,     // THEME_BLUE_DARK
 			Graphics.COLOR_PINK,     // THEME_PINK_DARK
 			Graphics.COLOR_GREEN,    // THEME_GREEN_DARK
 			Graphics.COLOR_DK_GRAY,  // THEME_MONO_LIGHT
