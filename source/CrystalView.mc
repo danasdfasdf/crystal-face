@@ -214,9 +214,9 @@ class CrystalView extends Ui.WatchFace {
 
 		// Theme-specific colours.
 		gThemeColour = [
-			0x88c0d0,     // THEME_BLUE_DARK
+			0xa7beae,     // THEME_BLUE_DARK
 			Graphics.COLOR_PINK,     // THEME_PINK_DARK
-			Graphics.COLOR_GREEN,    // THEME_GREEN_DARK
+			0xA3BE8C,    // THEME_GREEN_DARK
 			Graphics.COLOR_DK_GRAY,  // THEME_MONO_LIGHT
 			0x55AAFF,                // THEME_CORNFLOWER_BLUE_DARK
 			0xFFFFAA,                // THEME_LEMON_CREAM_DARK

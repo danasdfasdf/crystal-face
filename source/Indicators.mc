@@ -87,7 +87,7 @@ class Indicators extends Ui.Drawable {
 	function drawIndicator(dc, indicatorType, x, y) {
 
 		// Battery indicator.
-		if (indicatorType == 0 /* INDICATOR_TYPE_BATTERY */) {
+		if (indicatorType == 4 /* INDICATOR_TYPE_BATTERY */) {
 			drawBatteryMeter(dc, x, y, mBatteryWidth, mBatteryWidth / 2);
 			return;
 		}
@@ -103,7 +103,7 @@ class Indicators extends Ui.Drawable {
 			if (settings.phoneConnected && (settings.notificationCount > 0)) {
 				indicatorType = 2; // INDICATOR_TYPE_NOTIFICATIONS
 			} else {
-				indicatorType = 4; // INDICATOR_TYPE_BLUETOOTH
+				indicatorType = 0; // INDICATOR_TYPE_BLUETOOTH
 			}
 		}
 

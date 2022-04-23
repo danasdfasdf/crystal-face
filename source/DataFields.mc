@@ -172,7 +172,7 @@ class DataFields extends Ui.Drawable {
 
 		// #34 Clip live HR value.
 		// Optimisation: hard-code clip rect dimensions. Possible, as all watches use same label font.
-		dc.setColor(gMonoLightColour, gBackgroundColour);
+		dc.setColor(0xe7e8d1, gBackgroundColour);
 
 		if (isPartialUpdate) {
 			dc.setClip(

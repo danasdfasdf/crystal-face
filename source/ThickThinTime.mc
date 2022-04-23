@@ -77,7 +77,7 @@ class ThickThinTime extends Ui.Drawable {
 		var x = halfDCWidth - (totalWidth / 2);
 
 		// Draw hours.
-		dc.setColor(gHoursColour, Graphics.COLOR_TRANSPARENT);
+		dc.setColor(0xb85042, Graphics.COLOR_TRANSPARENT);
 		dc.drawText(
 			x,
 			halfDCHeight,
@@ -88,7 +88,7 @@ class ThickThinTime extends Ui.Drawable {
 		x += dc.getTextWidthInPixels(hours, mHoursFont);
 
 		// Draw minutes.
-		dc.setColor(gMinutesColour, Graphics.COLOR_TRANSPARENT);
+		dc.setColor(0xb85042, Graphics.COLOR_TRANSPARENT);
 		dc.drawText(
 			x,
 			halfDCHeight,
@@ -142,7 +142,7 @@ class ThickThinTime extends Ui.Drawable {
 
 			// Drawing will not be clipped, so ensure background is transparent in case font height overlaps with another
 			// drawable.
-			dc.setColor(gThemeColour, Graphics.COLOR_TRANSPARENT);
+			dc.setColor(0xb85042, Graphics.COLOR_TRANSPARENT);
 		}
 
 		dc.drawText(
